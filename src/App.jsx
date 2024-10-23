@@ -1,5 +1,5 @@
 
-import { useState} from "react"
+import { useEffect, useState} from "react"
 import {InputBox} from "./components";
 import useCurrencyInfo from "./hooks/useCurrencyinfo"
 function App() {
@@ -15,14 +15,21 @@ const currencyInfo=useCurrencyInfo(from)
     setFrom(to);
     setTo(from);
     setConvertedAmount(amount);
-    setAmount(convertedAmount)
+    setAmount(Math.trunc(convertedAmount))
   }
 
 const convert=()=>{
   setConvertedAmount(amount*currencyInfo[to]);
 }
 
-
+const setDefault=()=>{
+    if(convert){
+        setTo(to);
+    }
+}
+useEffect(()=>{
+setDefault()
+},[]);
 
 return (
   <div
